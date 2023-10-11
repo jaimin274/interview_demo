@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
+Route::post('login', [StudentController::class, 'login']);
+
+
+Route::get('list_student', [StudentController::class, 'index'])->name('list');
+Route::get('add_student', [StudentController::class, 'create']);
+Route::post('add_student', [StudentController::class, 'store']);
+
+Route::get('delete/{id}', [StudentController::class, 'destroy']);
+
+Route::get('edit/{id}', [StudentController::class, 'edit']);
+Route::post('update/{id}', [StudentController::class, 'update']);
+
+
+Route::get('pdf_generate/{id}', [StudentController::class, 'pdf_generate'])->name("pdf_gen");
+
+Route::get('excel_generate/{id}', [StudentController::class, 'excel_generate']);
