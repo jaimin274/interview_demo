@@ -29,10 +29,13 @@ table, th, td {
     <td>{{$item->name}}</td>
     <td>{{$item->email}}</td>
     <td>{{$item->phone}}</td>
-    <td>{{$item->sub1}}</td>
-    <td>{{$item->sub2}}</td>
-    <td>{{$item->sub3}}</td>
-    <td>{{$item->total}}</td>
+    @foreach($item->subject as $subdata)
+    <td>{{$subdata->sub1}}</td>
+    <td>{{$subdata->sub2}}</td>
+    <td>{{$subdata->sub3}}</td>
+    <td>{{$subdata->total}}</td>
+    @endforeach
+
   </tr>
   @endforeach
   

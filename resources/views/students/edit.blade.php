@@ -23,16 +23,6 @@
             
             <label>Phone number : </label>   
             <input type="text" class="form-control" placeholder="Enter Phone number" name="phone" value="{{$data->phone}}" required>  
-
-            <label>Subject 1 : </label>   
-            <input type="text" class="form-control" placeholder="Enter Subject 1" name="sub1" value="{{$data->sub1}}" required> 
-            
-            <label>Subject 2 : </label>   
-            <input type="text" class="form-control" placeholder="Enter Subject 2" name="sub2" value="{{$data->sub2}}" required> 
-
-            <label>Subject 3 : </label>   
-            <input type="text" class="form-control" placeholder="Enter Subject 3" name="sub3" value="{{$data->sub3}}" required> 
-
             
             <input type="submit" class="btn btn-primary mt-4" name="submit">   
            

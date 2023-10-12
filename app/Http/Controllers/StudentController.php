@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Student;
+use App\Models\Subject;
 use PDF; 
 
 
@@ -43,19 +44,14 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        $total = 0; 
+      
         $student = new Student();
         $student->name = $request->name;
         $student->email = $request->email;
         $student->phone = $request->phone;
         $student->status = 0;
-        $total = $request->sub1 + $request->sub2 + $request->sub3;
-        $student->sub1 = $request->sub1;
-        $student->sub2 = $request->sub2;
-        $student->sub3 = $request->sub3;
-
-        $student->total = $total;
-
+        
+      
         if($student->save()){
             return redirect()->route('list');
         }else{
@@ -93,10 +89,7 @@ class StudentController extends Controller
         $stu_data->email = $request->email;
         $stu_data->phone = $request->phone;
         $stu_data->status = 0;
-        $stu_data->sub1 = $request->sub1;
-        $stu_data->sub2 = $request->sub2;
-        $stu_data->sub3 = $request->sub3;
-        $stu_data->total = $request->total;
+       
         if($stu_data->save()){
             return redirect()->route('list');
         }else{
@@ -119,12 +112,35 @@ class StudentController extends Controller
         return redirect()->route('list');
     }
 
+    public function get_student() {
+        $student = Student::get();
+        return response()->json(["data"=>$student]);
+    }
+
     public function pdf_generate(Request $request, $id) {
-        $items = Student::where('id',$id)->get();
+         $items = Student::with('subject')->where('id',$id)->get();
        
         $pdf = PDF::loadView('students/pdfview', ["data"=> $items]);
-        return $pdf->download('pdfview.pdf');
-         
+        return $pdf->download('pdfview.pdf');   
     }
+
+    public function add_subject(){
+        return view('students/subjectadd');
+    }
+    
+    public function store_subject(Request $request){
+        $data = new Subject();
+        $total = 0;
+        $total = $request->sub1 + $request->sub2 + $request->sub3;
+
+        $data->student_id = $request->student_id;
+        $data->sub1 = $request->sub1;
+        $data->sub2 = $request->sub2;
+        $data->sub3 = $request->sub3;
+        $data->total = $total;
+        $data->save();
+        return view('students/subjectadd');
+    }
+    
  
 }

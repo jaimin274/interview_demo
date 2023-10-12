@@ -30,6 +30,12 @@ Route::get('edit/{id}', [StudentController::class, 'edit']);
 Route::post('update/{id}', [StudentController::class, 'update']);
 
 
+Route::get('get_student', [StudentController::class, 'get_student'])->name("getdata");
+
+Route::get('add_subject', [StudentController::class, 'add_subject']);
+Route::post('add_subject', [StudentController::class, 'store_subject']);
+
+
 Route::get('pdf_generate/{id}', [StudentController::class, 'pdf_generate'])->name("pdf_gen");
 
 Route::get('excel_generate/{id}', [StudentController::class, 'excel_generate']);
